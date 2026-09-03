@@ -70,11 +70,31 @@ export default function App() {
     })
   }, [])
 
+  const [authError, setAuthError] = useState('')
+
   useEffect(() => {
     if (!supabase) return
+
+    if (window.location.hash.includes('error=')) {
+      const params = new URLSearchParams(window.location.hash.slice(1))
+      const description = params.get('error_description')
+      setAuthError(
+        description
+          ? decodeURIComponent(description.replace(/\+/g, ' '))
+          : 'Não foi possível confirmar o login. Tente enviar o link de novo.'
+      )
+      window.history.replaceState(null, '', window.location.pathname)
+    }
+
     supabase.auth.getSession().then(({ data }) => {
       if (data?.session) hydrateFromSession(data.session)
     })
+
+    const { data: subscription } = supabase.auth.onAuthStateChange((event, session) => {
+      if (event === 'SIGNED_IN' && session) hydrateFromSession(session)
+    })
+
+    return () => subscription.subscription.unsubscribe()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -329,7 +349,7 @@ export default function App() {
       </header>
 
       <main className={styles.stage}>
-        {state.screen === 'login' && <Login onComplete={handleLoginComplete} />}
+        {state.screen === 'login' && <Login onComplete={handleLoginComplete} externalError={authError} />}
 
         {state.screen === 'onboarding' && <Onboarding onComplete={handleOnboardingComplete} />}
 
