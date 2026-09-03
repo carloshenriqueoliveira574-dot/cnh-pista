@@ -1,0 +1,110 @@
+.wrap {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 24px 18px 0;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex-shrink: 0;
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-size: 20px;
+  font-weight: 900;
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+}
+
+.name {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--color-primary);
+}
+
+.email {
+  font-size: 13px;
+  color: var(--color-primary-400);
+}
+
+.premiumBadge {
+  margin-left: auto;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  background: var(--color-gold);
+  color: var(--color-gold-ink);
+  border-radius: var(--radius-pill);
+  padding: 4px 8px;
+  flex-shrink: 0;
+}
+
+.rule {
+  height: 1px;
+  background: var(--color-border);
+  margin: 20px 0;
+  flex-shrink: 0;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.stat {
+  text-align: center;
+}
+
+.statValue {
+  font-size: 26px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--color-primary);
+}
+
+.statLabel {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--color-primary-400);
+  margin-top: 2px;
+}
+
+.row {
+  width: 100%;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--color-primary);
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 800;
+  text-align: left;
+  padding: 14px;
+  flex-shrink: 0;
+}
+
+.spacer {
+  flex: 1;
+}
+
+.signOut {
+  border: none;
+  background: none;
+  font-family: var(--font);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--color-error-dark);
+  padding: 16px 0;
+  flex-shrink: 0;
+}

@@ -1,0 +1,37 @@
+.nav {
+  margin-top: auto;
+  background: var(--color-surface-2);
+  border-top: 1px solid var(--color-border);
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  color: var(--color-text-muted);
+  flex-shrink: 0;
+}
+
+.item {
+  padding: 12px 8px;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.06em;
+  border: none;
+  border-top: 3px solid transparent;
+  background: none;
+  color: inherit;
+  font-family: var(--font);
+  text-align: left;
+  cursor: pointer;
+}
+
+.item.active {
+  color: var(--color-accent);
+  border-top-color: var(--color-accent);
+}
+
+.icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid currentColor;
+  border-radius: 4px;
+  margin-bottom: 6px;
+}

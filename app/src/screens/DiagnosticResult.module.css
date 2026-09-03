@@ -1,0 +1,88 @@
+.wrap {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 28px 18px 18px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 900;
+  letter-spacing: -0.02em;
+  color: var(--color-primary);
+  margin: 0 0 24px;
+  flex-shrink: 0;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rowHead {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.rowLabel {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-primary);
+}
+
+.rowPctGood {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--color-success);
+}
+
+.rowPctBad {
+  font-size: 18px;
+  font-weight: 900;
+  color: var(--color-error-dark);
+}
+
+.bar {
+  height: 10px;
+  border-radius: var(--radius-pill);
+  overflow: hidden;
+  background: var(--color-surface-2);
+}
+
+.barFillGood {
+  height: 100%;
+  background: var(--color-success);
+}
+
+.barFillBad {
+  height: 100%;
+  background: var(--color-error);
+}
+
+.footer {
+  padding-top: 18px;
+  flex-shrink: 0;
+}
+
+.cta {
+  width: 100%;
+  border: none;
+  border-radius: var(--radius-sm);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-size: 15px;
+  font-weight: 800;
+  font-family: var(--font);
+  padding: 16px;
+}

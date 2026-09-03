@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap');
+
+:root {
+  /* Asfalto — dark surfaces, amber as the one accent, red reserved for errors */
+  --color-page-bg: #0b0c0e;
+  --color-bg: #111215;
+  --color-surface: #1a1c20;
+  --color-surface-2: #24262b;
+  --color-surface-3: #2e3137;
+
+  --color-text: #f6f5f2;
+  --color-text-body: #c7c9ce;
+  --color-text-muted: #85878f;
+
+  --color-border: rgba(255, 255, 255, 0.09);
+  --color-border-strong: rgba(255, 255, 255, 0.18);
+
+  --color-accent: #f2a93c;
+  --color-accent-strong: #d9911f;
+  --color-accent-tint: rgba(242, 169, 60, 0.16);
+  --color-accent-ink: #241a04;
+
+  /* legacy role aliases still referenced across screens */
+  --color-primary: var(--color-text);
+  --color-primary-900: #030405;
+  --color-primary-400: var(--color-text-muted);
+  --color-primary-150: var(--color-surface-2);
+  --color-primary-100: var(--color-surface);
+  --color-rule: var(--color-border);
+  --color-rule-strong: var(--color-border-strong);
+
+  --color-error: #ff6b57;
+  --color-error-dark: #ffb3a6;
+  --color-error-mid: #ff9686;
+  --color-error-tint: rgba(255, 107, 87, 0.14);
+  --color-error-text: #ffc9c0;
+
+  --color-success: #35d68b;
+
+  --color-gold: var(--color-accent);
+  --color-gold-light: #f7c46b;
+  --color-gold-dark: #c9832a;
+  --color-gold-ink: var(--color-accent-ink);
+
+  --font: 'Archivo', system-ui, sans-serif;
+  --rule: 1px;
+  --radius: 14px;
+  --radius-sm: 10px;
+  --radius-lg: 22px;
+  --radius-pill: 999px;
+
+  --shadow-card: 0 16px 32px rgba(0, 0, 0, 0.45);
+  --shadow-sm: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background: var(--color-page-bg);
+  font-family: var(--font);
+  color: var(--color-text-body);
+  -webkit-font-smoothing: antialiased;
+}
+
+#root {
+  min-height: 100svh;
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+}
+
+img,
+svg {
+  display: block;
+}
+
+@keyframes coinIn {
+  0% {
+    transform: scale(0.7) rotateY(-90deg);
+    opacity: 0;
+  }
+  60% {
+    transform: scale(1.06) rotateY(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1) rotateY(0deg);
+    opacity: 1;
+  }
+}
+
+@keyframes shimmer {
+  0%,
+  100% {
+    opacity: 0.25;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+@keyframes arrowIn {
+  0% {
+    transform: translateX(14px);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
