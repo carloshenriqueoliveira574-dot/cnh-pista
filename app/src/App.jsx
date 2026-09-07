@@ -23,7 +23,7 @@ import {
   saveStudyAnswer,
   saveMacete,
   saveSimulado,
-  setPremium as persistPremium,
+  startCheckout,
   loadUserState,
 } from './lib/backend'
 import styles from './App.module.css'
@@ -46,6 +46,8 @@ const INITIAL_STATE = {
   lastSimulado: null,
   simuladoView: null,
   simuladosCount: 0,
+  checkoutLoading: false,
+  checkoutError: '',
 }
 
 function scoreByCategory(entries) {
@@ -95,6 +97,31 @@ export default function App() {
     })
 
     return () => subscription.subscription.unsubscribe()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  useEffect(() => {
+    if (!supabase) return
+    if (new URLSearchParams(window.location.search).get('mp') !== 'return') return
+    window.history.replaceState(null, '', window.location.pathname)
+
+    let cancelled = false
+    async function pollPremium() {
+      for (let attempt = 0; attempt < 5; attempt += 1) {
+        await new Promise((resolve) => setTimeout(resolve, 2000))
+        const { data } = await supabase.auth.getSession()
+        if (!data?.session || cancelled) return
+        const userState = await loadUserState(data.session.user.id)
+        if (userState?.profile?.premium) {
+          setState((s) => ({ ...s, premium: true }))
+          return
+        }
+      }
+    }
+    pollPremium()
+    return () => {
+      cancelled = true
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
@@ -182,9 +209,14 @@ export default function App() {
     setState((s) => ({ ...s, screen: 'home' }))
   }
 
-  function handleSubscribe() {
-    if (state.userId) persistPremium(state.userId, true).catch(() => {})
-    setState((s) => ({ ...s, premium: true, screen: 'home' }))
+  async function handleSubscribe() {
+    setState((s) => ({ ...s, checkoutLoading: true, checkoutError: '' }))
+    try {
+      const initPoint = await startCheckout()
+      window.location.href = initPoint
+    } catch (err) {
+      setState((s) => ({ ...s, checkoutLoading: false, checkoutError: err.message || 'Não foi possível iniciar a assinatura.' }))
+    }
   }
 
   function handleSkipPaywall() {
@@ -364,6 +396,8 @@ export default function App() {
             weakCategories={scoreByCategory(state.diagnosticAnswers).slice(0, 3).map((s) => s.label)}
             onSubscribe={handleSubscribe}
             onSkip={handleSkipPaywall}
+            loading={state.checkoutLoading}
+            error={state.checkoutError}
           />
         )}
 

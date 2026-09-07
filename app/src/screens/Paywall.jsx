@@ -10,7 +10,7 @@ const BENEFITS = [
   'Plano de estudo personalizado',
 ]
 
-export default function Paywall({ weakCategories, onSubscribe, onSkip }) {
+export default function Paywall({ weakCategories, onSubscribe, onSkip, loading, error }) {
   return (
     <PhoneFrame label="Paywall">
       <div className={styles.wrap}>
@@ -43,9 +43,10 @@ export default function Paywall({ weakCategories, onSubscribe, onSkip }) {
         </div>
 
         <div className={styles.footer}>
-          <button type="button" className={styles.cta} onClick={onSubscribe}>
-            ASSINAR PREMIUM
+          <button type="button" className={styles.cta} onClick={onSubscribe} disabled={loading}>
+            {loading ? 'ABRINDO PAGAMENTO...' : 'ASSINAR PREMIUM · R$ 19,90/MÊS'}
           </button>
+          {error && <p className={styles.error}>{error}</p>}
           <button type="button" className={styles.skip} onClick={onSkip}>
             Continuar no plano grátis
           </button>

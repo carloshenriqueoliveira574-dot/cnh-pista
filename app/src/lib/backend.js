@@ -65,6 +65,21 @@ export async function setPremium(userId, premium) {
   await supabase.from('profiles').update({ premium }).eq('id', userId)
 }
 
+export async function startCheckout() {
+  if (!supabase) throw new Error('Supabase não configurado')
+  const { data } = await supabase.auth.getSession()
+  const accessToken = data?.session?.access_token
+  if (!accessToken) throw new Error('Sessão inválida')
+
+  const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/create-subscription`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${accessToken}` },
+  })
+  const body = await res.json()
+  if (!res.ok) throw new Error(body?.error?.message || 'Não foi possível iniciar a assinatura')
+  return body.init_point
+}
+
 export async function loadUserState(userId) {
   if (!supabase) return null
 

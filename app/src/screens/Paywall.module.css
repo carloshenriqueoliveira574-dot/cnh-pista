@@ -113,6 +113,17 @@
   padding: 16px;
 }
 
+.cta:disabled {
+  opacity: 0.6;
+}
+
+.error {
+  font-size: 13px;
+  color: var(--color-error-dark);
+  margin: 10px 0 0;
+  text-align: center;
+}
+
 .skip {
   border: none;
   background: none;
