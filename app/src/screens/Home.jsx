@@ -1,5 +1,6 @@
 import PhoneFrame from '../components/PhoneFrame'
 import BottomNav from '../components/BottomNav'
+import ReadinessGauge from '../components/ReadinessGauge'
 import styles from './Home.module.css'
 
 export default function Home({
@@ -19,15 +20,8 @@ export default function Home({
   return (
     <PhoneFrame statusBarRight="3 DIAS SEGUIDOS" label="Home · indicador de preparo no topo">
       <header className={styles.readiness}>
-        <div className={styles.kicker}>Bom dia, {name}</div>
-        <div className={styles.kicker}>Estou pronto?</div>
-        <div className={styles.status}>
-          <span className={styles.statusLabel}>{readinessLabel}</span>
-          <span className={styles.statusPct}>{readinessPct}%</span>
-        </div>
-        <div className={styles.bar}>
-          <div className={styles.barFill} style={{ width: `${readinessPct}%` }} />
-        </div>
+        <p className={styles.greeting}>Bom dia, {name}</p>
+        <ReadinessGauge pct={readinessPct} label={readinessLabel} />
         <p className={styles.statusNote}>
           {weak ? (
             <>

@@ -1,24 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@500;600;700&display=swap');
 
 :root {
-  /* Asfalto — dark surfaces, amber as the one accent, red reserved for errors */
-  --color-page-bg: #0b0c0e;
-  --color-bg: #111215;
-  --color-surface: #1a1c20;
-  --color-surface-2: #24262b;
-  --color-surface-3: #2e3137;
+  /* Asfalto — dashboard-at-night surfaces, instrument-amber as the one accent, red reserved for errors */
+  --color-page-bg: #0e0c0a;
+  --color-bg: #15120f;
+  --color-surface: #1e1a16;
+  --color-surface-2: #292420;
+  --color-surface-3: #342e28;
 
-  --color-text: #f6f5f2;
-  --color-text-body: #c7c9ce;
-  --color-text-muted: #85878f;
+  --color-text: #f8f4ee;
+  --color-text-body: #cbc6be;
+  --color-text-muted: #8c867d;
 
-  --color-border: rgba(255, 255, 255, 0.09);
-  --color-border-strong: rgba(255, 255, 255, 0.18);
+  --color-border: rgba(255, 244, 224, 0.08);
+  --color-border-strong: rgba(255, 244, 224, 0.18);
 
-  --color-accent: #f2a93c;
-  --color-accent-strong: #d9911f;
-  --color-accent-tint: rgba(242, 169, 60, 0.16);
-  --color-accent-ink: #241a04;
+  --color-accent: #f4a836;
+  --color-accent-strong: #d98a1c;
+  --color-accent-tint: rgba(244, 168, 54, 0.16);
+  --color-accent-ink: #241804;
+  --color-accent-glow: rgba(244, 168, 54, 0.4);
 
   /* legacy role aliases still referenced across screens */
   --color-primary: var(--color-text);
@@ -43,14 +44,21 @@
   --color-gold-ink: var(--color-accent-ink);
 
   --font: 'Archivo', system-ui, sans-serif;
+  --font-display: 'Space Grotesk', 'Archivo', system-ui, sans-serif;
   --rule: 1px;
   --radius: 14px;
   --radius-sm: 10px;
   --radius-lg: 22px;
   --radius-pill: 999px;
 
-  --shadow-card: 0 16px 32px rgba(0, 0, 0, 0.45);
-  --shadow-sm: 0 6px 16px rgba(0, 0, 0, 0.35);
+  --shadow-card: 0 16px 32px rgba(0, 0, 0, 0.5);
+  --shadow-sm: 0 6px 16px rgba(0, 0, 0, 0.38);
+}
+
+.laneLine {
+  height: 0;
+  border-top: 2px dashed var(--color-border-strong);
+  flex-shrink: 0;
 }
 
 * {
