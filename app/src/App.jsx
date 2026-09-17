@@ -140,6 +140,7 @@ export default function App() {
 
     const onboarded = Boolean(userState?.profile?.study_level)
     const diag = userState?.lastDiagnostic
+    const scored = diag?.answers ? scoreByCategory(diag.answers) : null
 
     setState((s) => ({
       ...s,
@@ -153,6 +154,8 @@ export default function App() {
       lastSimulado: userState?.lastSimulado ?? null,
       focusCategory: diag?.weak_category ?? s.focusCategory,
       readinessPct: diag?.overall_pct ?? s.readinessPct,
+      weak: scored?.[0] ?? s.weak,
+      strong: scored?.[scored.length - 1] ?? s.strong,
       screen: onboarded ? 'home' : 'onboarding',
     }))
   }
@@ -413,6 +416,8 @@ export default function App() {
             strong={state.strong}
             weak={state.weak}
             lastSimulado={state.lastSimulado}
+            displayName={state.displayName}
+            userEmail={state.userEmail}
             onContinue={startStudySession}
             onOpenMacetes={openMacetes}
             onNavigate={handleNavigate}

@@ -6,17 +6,20 @@ export default function Home({
   readinessPct = 72,
   readinessLabel = 'QUASE LÁ',
   focusCategory = 'Preferência em cruzamentos',
-  strong = { label: 'Sinalização', pct: 88 },
-  weak = { label: 'Infrações', pct: 52 },
+  strong = null,
+  weak = null,
   lastSimulado = null,
+  displayName,
+  userEmail,
   onContinue,
   onOpenMacetes,
   onNavigate,
 }) {
+  const name = displayName || userEmail?.split('@')[0] || 'Você'
   return (
     <PhoneFrame statusBarRight="3 DIAS SEGUIDOS" label="Home · indicador de preparo no topo">
       <header className={styles.readiness}>
-        <div className={styles.kicker}>Bom dia, Camila</div>
+        <div className={styles.kicker}>Bom dia, {name}</div>
         <div className={styles.kicker}>Estou pronto?</div>
         <div className={styles.status}>
           <span className={styles.statusLabel}>{readinessLabel}</span>
@@ -26,7 +29,13 @@ export default function Home({
           <div className={styles.barFill} style={{ width: `${readinessPct}%` }} />
         </div>
         <p className={styles.statusNote}>
-          Você vai bem. Falta revisar <strong>{weak.label.toLowerCase()}</strong>.
+          {weak ? (
+            <>
+              Você vai bem. Falta revisar <strong>{weak.label.toLowerCase()}</strong>.
+            </>
+          ) : (
+            'Faça o diagnóstico pra saber onde focar.'
+          )}
         </p>
       </header>
 
@@ -41,18 +50,24 @@ export default function Home({
 
       <div className={styles.rule} />
 
-      <section className={styles.stats}>
-        <div className={`${styles.stat} ${styles.statGood}`}>
-          <div className={styles.statLabel}>Ponto forte</div>
-          <div className={styles.statTitle}>{strong.label}</div>
-          <div className={styles.statValueGood}>{strong.pct}%</div>
-        </div>
-        <div className={`${styles.stat} ${styles.statBad}`}>
-          <div className={styles.statLabelBad}>Reforçar</div>
-          <div className={styles.statTitle}>{weak.label}</div>
-          <div className={styles.statValueBad}>{weak.pct}%</div>
-        </div>
-      </section>
+      {(strong || weak) && (
+        <section className={styles.stats}>
+          {strong && (
+            <div className={`${styles.stat} ${styles.statGood}`}>
+              <div className={styles.statLabel}>Ponto forte</div>
+              <div className={styles.statTitle}>{strong.label}</div>
+              <div className={styles.statValueGood}>{strong.pct}%</div>
+            </div>
+          )}
+          {weak && (
+            <div className={`${styles.stat} ${styles.statBad}`}>
+              <div className={styles.statLabelBad}>Reforçar</div>
+              <div className={styles.statTitle}>{weak.label}</div>
+              <div className={styles.statValueBad}>{weak.pct}%</div>
+            </div>
+          )}
+        </section>
+      )}
 
       <section className={styles.lastRun}>
         {lastSimulado ? (
