@@ -49,8 +49,8 @@
 }
 
 .rule {
-  height: 1px;
-  background: var(--color-border);
+  height: 0;
+  border-top: 2px dashed var(--color-border-strong);
   margin: 20px 0;
   flex-shrink: 0;
 }
