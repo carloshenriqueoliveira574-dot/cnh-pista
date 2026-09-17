@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import * as Sentry from '@sentry/react'
 import Login from './screens/Login'
 import Onboarding from './screens/onboarding/Onboarding'
 import Diagnostic from './screens/Diagnostic'
@@ -236,6 +237,7 @@ export default function App() {
       const initPoint = await startCheckout()
       window.location.href = initPoint
     } catch (err) {
+      Sentry.captureException(err)
       setState((s) => ({ ...s, checkoutLoading: false, checkoutError: err.message || 'Não foi possível iniciar a assinatura.' }))
     }
   }
@@ -246,6 +248,7 @@ export default function App() {
       await cancelSubscription()
       setState((s) => ({ ...s, cancelLoading: false, premium: false }))
     } catch (err) {
+      Sentry.captureException(err)
       setState((s) => ({ ...s, cancelLoading: false, cancelError: err.message || 'Não foi possível cancelar a assinatura.' }))
     }
   }
