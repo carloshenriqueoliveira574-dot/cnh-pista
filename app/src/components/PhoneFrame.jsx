@@ -1,16 +1,13 @@
 import styles from './PhoneFrame.module.css'
 
-export default function PhoneFrame({ children, statusBarRight, label }) {
+export default function PhoneFrame({ children, statusBarRight }) {
   return (
-    <figure className={styles.figure}>
-      <div className={styles.frame}>
-        <div className={styles.statusBar}>
-          <span>9:41</span>
-          <span>{statusBarRight}</span>
-        </div>
-        <div className={styles.content}>{children}</div>
+    <div className={styles.frame}>
+      <div className={styles.statusBar}>
+        <span>9:41</span>
+        <span>{statusBarRight}</span>
       </div>
-      {label && <figcaption className={styles.caption}>{label}</figcaption>}
-    </figure>
+      <div className={styles.content}>{children}</div>
+    </div>
   )
 }

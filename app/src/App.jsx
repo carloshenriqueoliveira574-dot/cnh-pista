@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import * as Sentry from '@sentry/react'
+import Landing from './screens/Landing'
 import Login from './screens/Login'
 import Onboarding from './screens/onboarding/Onboarding'
 import Diagnostic from './screens/Diagnostic'
@@ -36,7 +37,7 @@ const SESSION_TOTAL = 5
 const REVIEW_TOTAL = 5
 
 const INITIAL_STATE = {
-  screen: 'login',
+  screen: 'landing',
   legalFrom: null,
   userId: null,
   userEmail: null,
@@ -404,16 +405,18 @@ export default function App() {
 
   const question = state.session.questions[state.session.index]
 
+  if (state.screen === 'landing') {
+    return (
+      <Landing
+        onStart={() => setState((s) => ({ ...s, screen: 'login' }))}
+        onOpenPrivacidade={() => openLegal('privacidade')}
+        onOpenTermos={() => openLegal('termos')}
+      />
+    )
+  }
+
   return (
     <div className={styles.page}>
-      <header className={styles.pageHeader}>
-        <span className={styles.badge}>Fase 01 · Pista</span>
-        <h1 className={styles.title}>CNH — Direção Pista</h1>
-        <button type="button" className={styles.resetLink} onClick={reset}>
-          reiniciar fluxo
-        </button>
-      </header>
-
       <main className={styles.stage}>
         {state.screen === 'login' && (
           <Login

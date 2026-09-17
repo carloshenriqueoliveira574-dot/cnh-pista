@@ -1,51 +1,20 @@
 .page {
-  min-height: 100svh;
+  min-height: 100dvh;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 40px 24px 64px;
   font-family: var(--font);
-}
-
-.pageHeader {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 32px;
-}
-
-.badge {
-  font-size: 12px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  background: var(--color-accent);
-  color: var(--color-accent-ink);
-  border-radius: var(--radius-pill);
-  padding: 6px 12px;
-}
-
-.title {
-  font-size: 22px;
-  font-weight: 900;
-  letter-spacing: -0.02em;
-  color: var(--color-primary);
-  margin: 0;
-}
-
-.resetLink {
-  border: none;
-  background: none;
-  font-family: var(--font);
-  font-size: 12px;
-  font-weight: 700;
-  color: var(--color-primary-400);
-  text-decoration: underline;
-  padding: 0;
-  margin-left: 8px;
 }
 
 .stage {
   display: flex;
   justify-content: center;
+  width: 100%;
+  flex: 1;
+}
+
+@media (min-width: 500px) {
+  .page {
+    padding: 40px 24px 64px;
+  }
 }
