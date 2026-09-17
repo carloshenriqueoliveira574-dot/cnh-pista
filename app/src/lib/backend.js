@@ -60,11 +60,6 @@ export async function saveSimulado(userId, { correct, total, elapsedSeconds, ans
   await supabase.from('simulados').insert({ user_id: userId, correct, total, elapsed_seconds: elapsedSeconds, answers })
 }
 
-export async function setPremium(userId, premium) {
-  if (!supabase) return
-  await supabase.from('profiles').update({ premium }).eq('id', userId)
-}
-
 export async function startCheckout() {
   if (!supabase) throw new Error('Supabase não configurado')
   const { data } = await supabase.auth.getSession()

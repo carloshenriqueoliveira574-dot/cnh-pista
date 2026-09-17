@@ -58,7 +58,8 @@ Deno.serve(async (req) => {
     return new Response(JSON.stringify({ error: mpData }), { status: 400 });
   }
 
-  await supabase
+  const supabaseAdmin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
+  await supabaseAdmin
     .from("profiles")
     .update({ mp_subscription_id: mpData.id, mp_subscription_status: mpData.status })
     .eq("id", user.id);

@@ -24,6 +24,18 @@ create policy "profiles: update own" on public.profiles
 create policy "profiles: insert own" on public.profiles
   for insert with check ((select auth.uid()) = id);
 
+-- assinatura (premium, mp_subscription_*) via projeto real / preapproval do
+-- Mercado Pago — ver seção mais abaixo e migração restrict_profile_column_updates
+alter table public.profiles
+  add column mp_subscription_id text,
+  add column mp_subscription_status text;
+
+-- só o service role (Edge Functions) pode alterar campos de assinatura;
+-- o próprio usuário só edita os campos de onboarding, nunca premium/mp_*
+-- (bloqueia mass assignment de "premium" via chamada direta ao client)
+revoke update on public.profiles from authenticated;
+grant update (display_name, exam_timing, estado, study_level) on public.profiles to authenticated;
+
 -- auto-cria um profile quando um usuário se cadastra
 create function public.handle_new_user()
 returns trigger
