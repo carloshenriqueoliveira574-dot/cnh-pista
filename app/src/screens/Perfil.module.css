@@ -94,6 +94,33 @@
   flex-shrink: 0;
 }
 
+.upgrade {
+  width: 100%;
+  border: none;
+  border-radius: var(--radius);
+  background: var(--color-accent);
+  color: var(--color-accent-ink);
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  padding: 14px;
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+.upgrade:disabled {
+  opacity: 0.6;
+}
+
+.error {
+  font-size: 13px;
+  color: var(--color-error-dark);
+  margin: 8px 0 0;
+  text-align: center;
+  flex-shrink: 0;
+}
+
 .spacer {
   flex: 1;
 }

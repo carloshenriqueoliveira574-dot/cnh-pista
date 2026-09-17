@@ -34,6 +34,8 @@ const REVIEW_TOTAL = 5
 const INITIAL_STATE = {
   screen: 'login',
   userId: null,
+  userEmail: null,
+  displayName: null,
   diagnosticAnswers: [],
   focusCategory: null,
   strong: null,
@@ -142,6 +144,8 @@ export default function App() {
     setState((s) => ({
       ...s,
       userId,
+      userEmail: session.user.email ?? null,
+      displayName: userState?.profile?.display_name ?? null,
       premium: userState?.profile?.premium ?? false,
       wrongCounts,
       macetes: userState?.macetes ?? {},
@@ -467,9 +471,14 @@ export default function App() {
             macetesCount={Object.keys(state.macetes).length}
             simuladosCount={state.simuladosCount}
             premium={state.premium}
+            userEmail={state.userEmail}
+            displayName={state.displayName}
             onOpenMacetes={openMacetes}
             onSignOut={reset}
             onNavigate={handleNavigate}
+            onSubscribe={handleSubscribe}
+            checkoutLoading={state.checkoutLoading}
+            checkoutError={state.checkoutError}
           />
         )}
       </main>
