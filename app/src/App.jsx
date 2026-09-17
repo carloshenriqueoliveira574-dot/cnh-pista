@@ -14,6 +14,8 @@ import SimuladoResult from './screens/SimuladoResult'
 import RevisaoIntro from './screens/RevisaoIntro'
 import MeusMacetes from './screens/MeusMacetes'
 import Perfil from './screens/Perfil'
+import Privacidade from './screens/Privacidade'
+import Termos from './screens/Termos'
 import { QUESTIONS, pickForCategory } from './data/questions'
 import { supabase } from './lib/supabaseClient'
 import {
@@ -33,6 +35,7 @@ const REVIEW_TOTAL = 5
 
 const INITIAL_STATE = {
   screen: 'login',
+  legalFrom: null,
   userId: null,
   userEmail: null,
   displayName: null,
@@ -216,6 +219,14 @@ export default function App() {
     setState((s) => ({ ...s, screen: 'home' }))
   }
 
+  function openLegal(doc) {
+    setState((s) => ({ ...s, screen: doc, legalFrom: s.screen }))
+  }
+
+  function closeLegal() {
+    setState((s) => ({ ...s, screen: s.legalFrom ?? 'login' }))
+  }
+
   async function handleSubscribe() {
     setState((s) => ({ ...s, checkoutLoading: true, checkoutError: '' }))
     try {
@@ -388,7 +399,18 @@ export default function App() {
       </header>
 
       <main className={styles.stage}>
-        {state.screen === 'login' && <Login onComplete={handleLoginComplete} externalError={authError} />}
+        {state.screen === 'login' && (
+          <Login
+            onComplete={handleLoginComplete}
+            externalError={authError}
+            onOpenPrivacidade={() => openLegal('privacidade')}
+            onOpenTermos={() => openLegal('termos')}
+          />
+        )}
+
+        {state.screen === 'privacidade' && <Privacidade onBack={closeLegal} />}
+
+        {state.screen === 'termos' && <Termos onBack={closeLegal} />}
 
         {state.screen === 'onboarding' && <Onboarding onComplete={handleOnboardingComplete} />}
 
@@ -484,6 +506,8 @@ export default function App() {
             onSubscribe={handleSubscribe}
             checkoutLoading={state.checkoutLoading}
             checkoutError={state.checkoutError}
+            onOpenPrivacidade={() => openLegal('privacidade')}
+            onOpenTermos={() => openLegal('termos')}
           />
         )}
       </main>

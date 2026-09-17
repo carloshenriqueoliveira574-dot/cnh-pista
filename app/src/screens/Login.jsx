@@ -3,7 +3,7 @@ import PhoneFrame from '../components/PhoneFrame'
 import { supabase } from '../lib/supabaseClient'
 import styles from './Login.module.css'
 
-export default function Login({ onComplete, externalError }) {
+export default function Login({ onComplete, externalError, onOpenPrivacidade, onOpenTermos }) {
   const [mode, setMode] = useState('start') // 'start' | 'email' | 'sent'
   const [email, setEmail] = useState('')
   const [code, setCode] = useState('')
@@ -134,7 +134,17 @@ export default function Login({ onComplete, externalError }) {
           </div>
         )}
 
-        <p className={styles.terms}>Ao continuar, você concorda com os Termos e a Privacidade.</p>
+        <p className={styles.terms}>
+          Ao continuar, você concorda com os{' '}
+          <button type="button" className={styles.termsLink} onClick={onOpenTermos}>
+            Termos
+          </button>{' '}
+          e a{' '}
+          <button type="button" className={styles.termsLink} onClick={onOpenPrivacidade}>
+            Privacidade
+          </button>
+          .
+        </p>
       </div>
     </PhoneFrame>
   )

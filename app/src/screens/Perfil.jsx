@@ -15,6 +15,8 @@ export default function Perfil({
   onSubscribe,
   checkoutLoading,
   checkoutError,
+  onOpenPrivacidade,
+  onOpenTermos,
 }) {
   const name = displayName || userEmail?.split('@')[0] || 'Você'
   return (
@@ -60,6 +62,14 @@ export default function Perfil({
             {checkoutError && <p className={styles.error}>{checkoutError}</p>}
           </>
         )}
+
+        <button type="button" className={styles.row} onClick={onOpenPrivacidade}>
+          🔒 Política de Privacidade
+        </button>
+
+        <button type="button" className={styles.row} onClick={onOpenTermos}>
+          📄 Termos de Uso
+        </button>
 
         <div className={styles.spacer} />
 
