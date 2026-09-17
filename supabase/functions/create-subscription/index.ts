@@ -4,14 +4,30 @@ import { createClient } from "jsr:@supabase/supabase-js@2";
 const PRICE_BRL = 19.9;
 const APP_URL = "https://carloshenriqueoliveira574-dot.github.io/cnh-pista/";
 
+const corsHeaders = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+};
+
+function json(body: unknown, status = 200) {
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: { "Content-Type": "application/json", ...corsHeaders },
+  });
+}
+
 Deno.serve(async (req) => {
+  if (req.method === "OPTIONS") {
+    return new Response(null, { headers: corsHeaders });
+  }
   if (req.method !== "POST") {
-    return new Response(JSON.stringify({ error: "method not allowed" }), { status: 405 });
+    return json({ error: "method not allowed" }, 405);
   }
 
   const authHeader = req.headers.get("Authorization");
   if (!authHeader) {
-    return new Response(JSON.stringify({ error: "missing auth" }), { status: 401 });
+    return json({ error: "missing auth" }, 401);
   }
 
   const supabase = createClient(
@@ -22,13 +38,13 @@ Deno.serve(async (req) => {
 
   const { data: userData, error: userError } = await supabase.auth.getUser();
   if (userError || !userData?.user) {
-    return new Response(JSON.stringify({ error: "invalid session" }), { status: 401 });
+    return json({ error: "invalid session" }, 401);
   }
 
   const user = userData.user;
   const mpToken = Deno.env.get("MP_ACCESS_TOKEN");
   if (!mpToken) {
-    return new Response(JSON.stringify({ error: "Mercado Pago não configurado" }), { status: 500 });
+    return json({ error: "Mercado Pago não configurado" }, 500);
   }
 
   const mpRes = await fetch("https://api.mercadopago.com/preapproval", {
@@ -55,7 +71,7 @@ Deno.serve(async (req) => {
   const mpData = await mpRes.json();
 
   if (!mpRes.ok) {
-    return new Response(JSON.stringify({ error: mpData }), { status: 400 });
+    return json({ error: mpData }, 400);
   }
 
   const supabaseAdmin = createClient(Deno.env.get("SUPABASE_URL")!, Deno.env.get("SUPABASE_SERVICE_ROLE_KEY")!);
@@ -64,7 +80,5 @@ Deno.serve(async (req) => {
     .update({ mp_subscription_id: mpData.id, mp_subscription_status: mpData.status })
     .eq("id", user.id);
 
-  return new Response(JSON.stringify({ init_point: mpData.init_point }), {
-    headers: { "Content-Type": "application/json" },
-  });
+  return json({ init_point: mpData.init_point });
 });
