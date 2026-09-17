@@ -122,6 +122,37 @@
   flex-shrink: 0;
 }
 
+.cancel {
+  width: 100%;
+  border: 1px solid var(--color-error-dark);
+  border-radius: var(--radius);
+  background: none;
+  color: var(--color-error-dark);
+  font-family: var(--font);
+  font-size: 15px;
+  font-weight: 800;
+  text-align: center;
+  padding: 14px;
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+.cancel:disabled {
+  opacity: 0.6;
+}
+
+.confirmBox {
+  margin-top: 10px;
+  flex-shrink: 0;
+}
+
+.confirmText {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--color-text-body);
+  margin: 0 0 10px;
+}
+
 .spacer {
   flex: 1;
 }

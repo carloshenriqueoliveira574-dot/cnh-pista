@@ -75,6 +75,20 @@ export async function startCheckout() {
   return body.init_point
 }
 
+export async function cancelSubscription() {
+  if (!supabase) throw new Error('Supabase não configurado')
+  const { data } = await supabase.auth.getSession()
+  const accessToken = data?.session?.access_token
+  if (!accessToken) throw new Error('Sessão inválida')
+
+  const res = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/cancel-subscription`, {
+    method: 'POST',
+    headers: { Authorization: `Bearer ${accessToken}` },
+  })
+  const body = await res.json()
+  if (!res.ok) throw new Error(body?.error?.message || 'Não foi possível cancelar a assinatura')
+}
+
 export async function loadUserState(userId) {
   if (!supabase) return null
 

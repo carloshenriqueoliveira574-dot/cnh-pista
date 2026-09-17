@@ -26,6 +26,7 @@ import {
   saveMacete,
   saveSimulado,
   startCheckout,
+  cancelSubscription,
   loadUserState,
 } from './lib/backend'
 import styles from './App.module.css'
@@ -53,6 +54,8 @@ const INITIAL_STATE = {
   simuladosCount: 0,
   checkoutLoading: false,
   checkoutError: '',
+  cancelLoading: false,
+  cancelError: '',
 }
 
 function scoreByCategory(entries) {
@@ -234,6 +237,16 @@ export default function App() {
       window.location.href = initPoint
     } catch (err) {
       setState((s) => ({ ...s, checkoutLoading: false, checkoutError: err.message || 'Não foi possível iniciar a assinatura.' }))
+    }
+  }
+
+  async function handleCancelSubscription() {
+    setState((s) => ({ ...s, cancelLoading: true, cancelError: '' }))
+    try {
+      await cancelSubscription()
+      setState((s) => ({ ...s, cancelLoading: false, premium: false }))
+    } catch (err) {
+      setState((s) => ({ ...s, cancelLoading: false, cancelError: err.message || 'Não foi possível cancelar a assinatura.' }))
     }
   }
 
@@ -506,6 +519,9 @@ export default function App() {
             onSubscribe={handleSubscribe}
             checkoutLoading={state.checkoutLoading}
             checkoutError={state.checkoutError}
+            onCancelSubscription={handleCancelSubscription}
+            cancelLoading={state.cancelLoading}
+            cancelError={state.cancelError}
             onOpenPrivacidade={() => openLegal('privacidade')}
             onOpenTermos={() => openLegal('termos')}
           />

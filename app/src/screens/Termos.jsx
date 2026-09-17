@@ -31,10 +31,11 @@ export default function Termos({ onBack }) {
               <strong>R$ 19,90 por mês</strong>, com renovação automática mensal, processado pelo Mercado Pago.
             </p>
             <p>
-              Ao assinar, você concorda com a cobrança recorrente mensal até que a assinatura seja cancelada.
-              Atualmente o cancelamento é feito diretamente pelo Mercado Pago, na área de assinaturas da sua conta
-              Mercado Pago — ainda não existe um botão de cancelamento dentro do app. Se tiver dificuldade para
-              cancelar, escreva para <strong>suporte@comunidadecutpro.com</strong> que ajudamos.
+              Ao assinar, você concorda com a cobrança recorrente mensal até que a assinatura seja cancelada. Você
+              pode cancelar a qualquer momento diretamente no app, na tela de Perfil, opção "Cancelar assinatura".
+              O cancelamento é imediato: seu acesso Premium é encerrado na hora e nenhuma cobrança futura é feita.
+              Se preferir, também é possível cancelar pela área de assinaturas da sua conta Mercado Pago. Dúvidas:
+              <strong> suporte@comunidadecutpro.com</strong>.
             </p>
           </section>
 

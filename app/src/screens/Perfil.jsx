@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import PhoneFrame from '../components/PhoneFrame'
 import BottomNav from '../components/BottomNav'
 import styles from './Perfil.module.css'
@@ -15,10 +16,14 @@ export default function Perfil({
   onSubscribe,
   checkoutLoading,
   checkoutError,
+  onCancelSubscription,
+  cancelLoading,
+  cancelError,
   onOpenPrivacidade,
   onOpenTermos,
 }) {
   const name = displayName || userEmail?.split('@')[0] || 'Você'
+  const [confirmingCancel, setConfirmingCancel] = useState(false)
   return (
     <PhoneFrame label="Perfil">
       <div className={styles.wrap}>
@@ -61,6 +66,27 @@ export default function Perfil({
             </button>
             {checkoutError && <p className={styles.error}>{checkoutError}</p>}
           </>
+        )}
+
+        {premium && !confirmingCancel && (
+          <button type="button" className={styles.cancel} onClick={() => setConfirmingCancel(true)}>
+            Cancelar assinatura
+          </button>
+        )}
+
+        {premium && confirmingCancel && (
+          <div className={styles.confirmBox}>
+            <p className={styles.confirmText}>
+              Tem certeza? Você perde o acesso Premium imediatamente e a cobrança recorrente é encerrada.
+            </p>
+            <button type="button" className={styles.cancel} onClick={onCancelSubscription} disabled={cancelLoading}>
+              {cancelLoading ? 'Cancelando...' : 'Sim, cancelar assinatura'}
+            </button>
+            <button type="button" className={styles.row} onClick={() => setConfirmingCancel(false)} disabled={cancelLoading}>
+              Manter assinatura
+            </button>
+            {cancelError && <p className={styles.error}>{cancelError}</p>}
+          </div>
         )}
 
         <button type="button" className={styles.row} onClick={onOpenPrivacidade}>
