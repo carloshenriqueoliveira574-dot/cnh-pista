@@ -100,3 +100,12 @@
   color: var(--color-primary-400);
   text-decoration: underline;
 }
+
+.honeypot {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  overflow: hidden;
+}
