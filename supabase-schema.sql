@@ -148,3 +148,34 @@ create policy "macetes_unlocked: own rows" on public.macetes_unlocked
   for all using ((select auth.uid()) = user_id) with check ((select auth.uid()) = user_id);
 
 create index macetes_unlocked_question_idx on public.macetes_unlocked (question_id);
+
+-- ---------- admin: question bank management ----------
+alter table public.profiles
+  add column is_admin boolean not null default false;
+
+create policy "Admins can insert questions"
+  on public.questions
+  for insert
+  to authenticated
+  with check (
+    exists (select 1 from public.profiles where id = auth.uid() and is_admin = true)
+  );
+
+create policy "Admins can update questions"
+  on public.questions
+  for update
+  to authenticated
+  using (
+    exists (select 1 from public.profiles where id = auth.uid() and is_admin = true)
+  )
+  with check (
+    exists (select 1 from public.profiles where id = auth.uid() and is_admin = true)
+  );
+
+create policy "Admins can delete questions"
+  on public.questions
+  for delete
+  to authenticated
+  using (
+    exists (select 1 from public.profiles where id = auth.uid() and is_admin = true)
+  );

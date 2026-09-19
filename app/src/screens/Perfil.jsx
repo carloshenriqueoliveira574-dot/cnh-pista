@@ -21,6 +21,8 @@ export default function Perfil({
   cancelError,
   onOpenPrivacidade,
   onOpenTermos,
+  isAdmin,
+  onOpenAdmin,
 }) {
   const name = displayName || userEmail?.split('@')[0] || 'Você'
   const [confirmingCancel, setConfirmingCancel] = useState(false)
@@ -96,6 +98,12 @@ export default function Perfil({
         <button type="button" className={styles.row} onClick={onOpenTermos}>
           📄 Termos de Uso
         </button>
+
+        {isAdmin && (
+          <button type="button" className={styles.row} onClick={onOpenAdmin}>
+            🛠️ Painel Admin
+          </button>
+        )}
 
         <div className={styles.spacer} />
 

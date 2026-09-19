@@ -24,6 +24,43 @@ export async function fetchQuestions() {
   return data.map(mapQuestionRow)
 }
 
+function toQuestionRow(q) {
+  return {
+    id: q.id,
+    category: q.category,
+    prompt: q.prompt,
+    scene: q.scene,
+    scene_variant: q.sceneVariant || null,
+    options: q.options,
+    correct_index: q.correctIndex,
+    lead: q.lead,
+    explanation: q.explanation,
+    trap: q.trap,
+    wrong_notes: q.wrongNotes ?? {},
+    macete_quote: q.macete?.quote ?? '',
+    macete_hint: q.macete?.hint ?? '',
+  }
+}
+
+export async function adminListQuestions() {
+  if (!supabase) throw new Error('Supabase não configurado')
+  const { data, error } = await supabase.from('questions').select('*').order('category').order('id')
+  if (error) throw error
+  return data.map(mapQuestionRow)
+}
+
+export async function adminSaveQuestion(question) {
+  if (!supabase) throw new Error('Supabase não configurado')
+  const { error } = await supabase.from('questions').upsert(toQuestionRow(question))
+  if (error) throw error
+}
+
+export async function adminDeleteQuestion(id) {
+  if (!supabase) throw new Error('Supabase não configurado')
+  const { error } = await supabase.from('questions').delete().eq('id', id)
+  if (error) throw error
+}
+
 export async function saveOnboarding(userId, { examTiming, estado, studyLevel }) {
   if (!supabase) return
   await supabase

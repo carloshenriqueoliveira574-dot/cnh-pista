@@ -18,6 +18,7 @@ import MeusMacetes from './screens/MeusMacetes'
 import Perfil from './screens/Perfil'
 import Privacidade from './screens/Privacidade'
 import Termos from './screens/Termos'
+import Admin from './screens/Admin'
 import { QUESTIONS, pickForCategory } from './data/questions'
 import { supabase } from './lib/supabaseClient'
 import {
@@ -48,6 +49,7 @@ const INITIAL_STATE = {
   weak: null,
   readinessPct: 0,
   premium: false,
+  isAdmin: false,
   session: { questions: [], index: 0, selectedIndex: null },
   macetes: {},
   wrongCounts: {},
@@ -156,6 +158,7 @@ export default function App() {
       userEmail: session.user.email ?? null,
       displayName: userState?.profile?.display_name ?? null,
       premium: userState?.profile?.premium ?? false,
+      isAdmin: userState?.profile?.is_admin ?? false,
       wrongCounts,
       macetes: userState?.macetes ?? {},
       simuladosCount: userState?.simuladosCount ?? 0,
@@ -415,6 +418,10 @@ export default function App() {
     )
   }
 
+  if (state.screen === 'admin' && state.isAdmin) {
+    return <Admin onBack={openPerfil} />
+  }
+
   return (
     <div className={styles.page}>
       <main className={styles.stage}>
@@ -530,6 +537,8 @@ export default function App() {
             cancelError={state.cancelError}
             onOpenPrivacidade={() => openLegal('privacidade')}
             onOpenTermos={() => openLegal('termos')}
+            isAdmin={state.isAdmin}
+            onOpenAdmin={() => setState((s) => ({ ...s, screen: 'admin' }))}
           />
         )}
       </main>
