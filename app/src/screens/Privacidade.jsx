@@ -13,7 +13,7 @@ export default function Privacidade({ onBack }) {
         </div>
 
         <div className={styles.content}>
-          <p className={styles.updated}>Última atualização: 17 de setembro de 2026.</p>
+          <p className={styles.updated}>Última atualização: 21 de setembro de 2026.</p>
 
           <section className={styles.section}>
             <h2>1. Quem trata os seus dados</h2>
@@ -33,6 +33,11 @@ export default function Privacidade({ onBack }) {
               <li>Respostas do diagnóstico inicial e dos simulados, para calcular seu nível de preparo por categoria.</li>
               <li>Progresso de estudo: questões erradas, macetes salvos, quantidade de simulados feitos.</li>
               <li>Status da sua assinatura (ativa, pendente, cancelada) e identificador da assinatura no Mercado Pago.</li>
+              <li>
+                Eventos de uso do app (por exemplo: visita à página inicial, início do fluxo de assinatura),
+                associados a um identificador de sessão anônimo e, quando você está logado, à sua conta — usamos isso
+                para entender se o produto está funcionando, não para publicidade.
+              </li>
             </ul>
             <p>
               <strong>Nós nunca temos acesso ao número do seu cartão ou a outros dados de pagamento.</strong> Esses
@@ -48,6 +53,7 @@ export default function Privacidade({ onBack }) {
               <li>Processar sua assinatura Premium e confirmar pagamentos (execução de contrato).</li>
               <li>Enviar o e-mail de login e comunicações essenciais sobre sua conta (execução de contrato).</li>
               <li>Cumprir obrigações legais e fiscais, quando aplicável (obrigação legal).</li>
+              <li>Entender como as pessoas usam o app para melhorar o produto e a conversão (interesse legítimo).</li>
             </ul>
             <p>Não usamos seus dados para publicidade e não vendemos seus dados a terceiros.</p>
           </section>

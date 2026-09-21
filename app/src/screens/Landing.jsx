@@ -41,7 +41,7 @@ export default function Landing({ onStart, onOpenPrivacidade, onOpenTermos }) {
     <div className={styles.page}>
       <header className={styles.nav}>
         <span className={styles.brand}>CNH · PISTA</span>
-        <button type="button" className={styles.navLink} onClick={onStart}>
+        <button type="button" className={styles.navLink} onClick={() => onStart('nav')}>
           Entrar
         </button>
       </header>
@@ -53,7 +53,7 @@ export default function Landing({ onStart, onOpenPrivacidade, onOpenTermos }) {
             O CNH Pista ensina o porquê de cada questão da prova teórica do Detran, com simulados reais e
             explicações que ficam na cabeça — não só até o dia da prova.
           </p>
-          <button type="button" className={styles.cta} onClick={onStart}>
+          <button type="button" className={styles.cta} onClick={() => onStart('hero')}>
             COMEÇAR AGORA — É GRÁTIS
           </button>
           <p className={styles.ctaNote}>Sem cartão de crédito pra começar.</p>
@@ -105,7 +105,7 @@ export default function Landing({ onStart, onOpenPrivacidade, onOpenTermos }) {
                 </li>
               ))}
             </ul>
-            <button type="button" className={styles.planCta} onClick={onStart}>
+            <button type="button" className={styles.planCta} onClick={() => onStart('pricing')}>
               Começar grátis
             </button>
           </div>

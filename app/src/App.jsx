@@ -32,6 +32,7 @@ import {
   cancelSubscription,
   loadUserState,
 } from './lib/backend'
+import { track } from './lib/analytics'
 import styles from './App.module.css'
 
 const SESSION_TOTAL = 5
@@ -113,6 +114,16 @@ export default function App() {
   }, [])
 
   useEffect(() => {
+    if (state.screen === 'landing') track('landing_view')
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.screen === 'landing'])
+
+  useEffect(() => {
+    if (state.screen === 'paywall') track('paywall_view', {}, state.userId)
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [state.screen === 'paywall'])
+
+  useEffect(() => {
     if (!supabase) return
     if (new URLSearchParams(window.location.search).get('mp') !== 'return') return
     window.history.replaceState(null, '', window.location.pathname)
@@ -169,6 +180,8 @@ export default function App() {
       strong: scored?.[scored.length - 1] ?? s.strong,
       screen: onboarded ? 'home' : 'onboarding',
     }))
+
+    if (!onboarded) track('signup_completed', {}, userId)
   }
 
   async function reset() {
@@ -237,6 +250,7 @@ export default function App() {
 
   async function handleSubscribe() {
     setState((s) => ({ ...s, checkoutLoading: true, checkoutError: '' }))
+    track('checkout_started', {}, state.userId)
     try {
       const initPoint = await startCheckout()
       window.location.href = initPoint
@@ -411,7 +425,10 @@ export default function App() {
   if (state.screen === 'landing') {
     return (
       <Landing
-        onStart={() => setState((s) => ({ ...s, screen: 'login' }))}
+        onStart={(location) => {
+          track('landing_cta_click', { location })
+          setState((s) => ({ ...s, screen: 'login' }))
+        }}
         onOpenPrivacidade={() => openLegal('privacidade')}
         onOpenTermos={() => openLegal('termos')}
       />
