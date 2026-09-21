@@ -21,7 +21,7 @@ jobs:
     env:
       VITE_SUPABASE_URL: https://kfvqaklqencuwdtuqfey.supabase.co
       VITE_SUPABASE_ANON_KEY: sb_publishable_ZpiSMhNlY26MXvwRGtqeQA_thdLspSe
-      VITE_SENTRY_DSN: ${{ secrets.VITE_SENTRY_DSN }}
+      VITE_SENTRY_DSN: https://490a9de4e8c9ea79f7432303f18107db@o4512126777294848.ingest.us.sentry.io/4512126879793152
       CLOUDFLARE_API_TOKEN: ${{ secrets.CLOUDFLARE_API_TOKEN }}
       CLOUDFLARE_ACCOUNT_ID: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
     steps:
