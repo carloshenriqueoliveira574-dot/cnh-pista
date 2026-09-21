@@ -45,7 +45,8 @@ jobs:
           cat /tmp/wrangler-output.log
 
       - name: Post redacted diagnostic log if it failed
-        if: steps.cf_deploy.outputs.exit_code != '0'
+        if: always()
+        continue-on-error: true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
