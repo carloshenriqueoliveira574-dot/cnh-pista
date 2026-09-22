@@ -1,0 +1,82 @@
+<!--
+  TEMPLATE para novos posts do blog. Não é publicado (fica fora de app/public).
+
+  Como usar:
+  1. Copie este arquivo para app/public/blog/<slug-da-url>/index.html
+  2. Preencha title, description, canonical, og:*, JSON-LD e o conteúdo
+  3. Adicione um <li><a class="postCard" ...> em app/public/blog/index.html
+  4. Adicione uma <url> em app/public/sitemap.xml
+  5. Rode `npm test -- --run` e faça o commit/push normal (o CI já builda e faz deploy)
+
+  Slug: minúsculo, com hífen, sem acento, descrevendo a dúvida
+  (ex: quantos-erros-posso-ter-prova-teorica-detran).
+-->
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>TÍTULO DA DÚVIDA, EM FORMA DE PERGUNTA | CNH Pista</title>
+    <meta name="description" content="Resposta direta em 1 frase + palavra-chave, até ~155 caracteres." />
+    <link rel="canonical" href="https://cnh-pista.pages.dev/blog/SLUG-DO-POST/" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="TÍTULO DA DÚVIDA, EM FORMA DE PERGUNTA" />
+    <meta property="og:description" content="Mesma descrição de acima." />
+    <meta name="twitter:card" content="summary" />
+    <link rel="stylesheet" href="/blog/style.css" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Repita a pergunta do título aqui",
+            "acceptedAnswer": { "@type": "Answer", "text": "Resposta direta, 2-3 frases." }
+          }
+        ]
+      }
+    </script>
+  </head>
+  <body>
+    <header class="nav">
+      <a class="brand" href="/">CNH · PISTA</a>
+      <a class="navLink" href="/blog/">Blog</a>
+    </header>
+
+    <main class="wrap">
+      <article>
+        <p class="eyebrow">CATEGORIA (ex: Prova teórica do Detran)</p>
+        <h1>TÍTULO DA DÚVIDA, EM FORMA DE PERGUNTA</h1>
+        <p class="updated">Atualizado em DATA · leitura de N min</p>
+
+        <div class="answerBox">
+          <p>Resposta direta nas primeiras 1-2 frases — isso é o que o Google costuma destacar.</p>
+        </div>
+
+        <h2>Subtítulo 1</h2>
+        <p>Desenvolvimento.</p>
+
+        <h2>Como chegar com mais segurança</h2>
+        <p>
+          Parágrafo de ponte pro produto (diagnóstico/simulados do CNH Pista), sem forçar venda — conectar a dúvida
+          respondida com o valor real do app.
+        </p>
+
+        <a class="cta" href="/">Fazer diagnóstico grátis</a>
+        <p class="ctaNote">Leva 2 minutos. Sem cartão de crédito.</p>
+      </article>
+    </main>
+
+    <footer class="footer">
+      <p>CNH Pista não é afiliado ao Detran. Contato: suporte@comunidadecutpro.com</p>
+    </footer>
+
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "f1cc14ade2264f17a47e576536bfae98"}'
+    ></script>
+  </body>
+</html>

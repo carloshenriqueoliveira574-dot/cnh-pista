@@ -137,6 +137,9 @@ export default function Landing({ onStart, onOpenPrivacidade, onOpenTermos }) {
           <button type="button" className={styles.footerLink} onClick={onOpenTermos}>
             Termos de Uso
           </button>
+          <a className={styles.footerLink} href="/blog/">
+            Blog
+          </a>
         </div>
         <p className={styles.footerNote}>
           CNH Pista não é afiliado ao Detran. Contato: suporte@comunidadecutpro.com
