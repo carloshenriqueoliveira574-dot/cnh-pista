@@ -3,10 +3,12 @@
 
   Como usar:
   1. Copie este arquivo para app/public/blog/<slug-da-url>/index.html
-  2. Preencha title, description, canonical, og:*, JSON-LD e o conteúdo
-  3. Adicione um <li><a class="postCard" ...> em app/public/blog/index.html
-  4. Adicione uma <url> em app/public/sitemap.xml
-  5. Rode `npm test -- --run` e faça o commit/push normal (o CI já builda e faz deploy)
+  2. Preencha title, description, canonical, og:*, JSON-LD, breadcrumb e o conteúdo
+  3. Ajuste os ids dos <h2> e os links do sumário (.toc) pra baterem
+  4. Se não precisar de tabela comparativa, remova o bloco <table class="dataTable">
+  5. Adicione um <li><a class="postCard" ...> em app/public/blog/index.html
+  6. Adicione uma <url> em app/public/sitemap.xml
+  7. Rode `npm test -- --run` e faça o commit/push normal (o CI já builda e faz deploy)
 
   Slug: minúsculo, com hífen, sem acento, descrevendo a dúvida
   (ex: quantos-erros-posso-ter-prova-teorica-detran).
@@ -40,36 +42,84 @@
     </script>
   </head>
   <body>
-    <header class="nav">
+    <header class="nav wide">
       <a class="brand" href="/">CNH · PISTA</a>
       <a class="navLink" href="/blog/">Blog</a>
     </header>
 
-    <main class="wrap">
-      <article>
-        <p class="eyebrow">CATEGORIA (ex: Prova teórica do Detran)</p>
-        <h1>TÍTULO DA DÚVIDA, EM FORMA DE PERGUNTA</h1>
-        <p class="updated">Atualizado em DATA · leitura de N min</p>
+    <main class="wrap wide">
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <a href="/">Início</a>
+        <span>›</span>
+        <a href="/blog/">Blog</a>
+        <span>›</span>
+        <span class="current">TÍTULO DA DÚVIDA, EM FORMA DE PERGUNTA</span>
+      </nav>
 
-        <div class="answerBox">
-          <p>Resposta direta nas primeiras 1-2 frases — isso é o que o Google costuma destacar.</p>
-        </div>
+      <div class="layout">
+        <article>
+          <span class="tag">CATEGORIA (ex: Prova teórica do Detran)</span>
+          <h1>TÍTULO DA DÚVIDA, EM FORMA DE PERGUNTA</h1>
+          <p class="metaRow">
+            <span>Equipe CNH Pista</span>
+            <span>·</span>
+            <span>Atualizado em DATA</span>
+            <span>·</span>
+            <span>N min de leitura</span>
+          </p>
 
-        <h2>Subtítulo 1</h2>
-        <p>Desenvolvimento.</p>
+          <div class="answerBox">
+            <p>Resposta direta nas primeiras 1-2 frases — isso é o que o Google costuma destacar.</p>
+          </div>
 
-        <h2>Como chegar com mais segurança</h2>
-        <p>
-          Parágrafo de ponte pro produto (diagnóstico/simulados do CNH Pista), sem forçar venda — conectar a dúvida
-          respondida com o valor real do app.
-        </p>
+          <!-- Opcional: tabela comparativa, se a dúvida envolver números/variações. Remova se não usar. -->
+          <table class="dataTable">
+            <thead>
+              <tr>
+                <th>Cenário</th>
+                <th>Coluna 2</th>
+                <th>Coluna 3</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Linha 1</strong></td>
+                <td>Valor</td>
+                <td>Valor</td>
+              </tr>
+            </tbody>
+          </table>
 
-        <a class="cta" href="/">Fazer diagnóstico grátis</a>
-        <p class="ctaNote">Leva 2 minutos. Sem cartão de crédito.</p>
-      </article>
+          <h2 id="topico-1">Subtítulo 1</h2>
+          <p>Desenvolvimento.</p>
+
+          <h2 id="como-se-preparar">Como chegar com mais segurança</h2>
+          <p>
+            Parágrafo de ponte pro produto (diagnóstico/simulados do CNH Pista), sem forçar venda — conectar a
+            dúvida respondida com o valor real do app.
+          </p>
+
+          <a class="cta" href="/">Fazer diagnóstico grátis</a>
+          <p class="ctaNote">Leva 2 minutos. Sem cartão de crédito.</p>
+        </article>
+
+        <aside class="aside">
+          <div class="toc">
+            <p>Tópicos desse artigo</p>
+            <ol>
+              <li><a href="#topico-1">Subtítulo 1</a></li>
+              <li><a href="#como-se-preparar">Como se preparar</a></li>
+            </ol>
+          </div>
+          <div class="sidebarCta">
+            <p>Descubra em quais categorias você já está pronto — e onde precisa focar.</p>
+            <a class="cta" href="/" style="margin: 0">Fazer diagnóstico grátis</a>
+          </div>
+        </aside>
+      </div>
     </main>
 
-    <footer class="footer">
+    <footer class="footer wide">
       <p>CNH Pista não é afiliado ao Detran. Contato: suporte@comunidadecutpro.com</p>
     </footer>
 
