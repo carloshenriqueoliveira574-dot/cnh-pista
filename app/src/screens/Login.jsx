@@ -31,16 +31,6 @@ export default function Login({ onComplete, externalError, onOpenPrivacidade, on
     if (externalError) setError(externalError)
   }, [externalError])
 
-  async function handleGoogle() {
-    if (!supabase) {
-      onComplete()
-      return
-    }
-    setError('')
-    const { error: authError } = await supabase.auth.signInWithOAuth({ provider: 'google' })
-    if (authError) setError('Login com Google indisponível no momento. Tente por e-mail.')
-  }
-
   async function handleSubmitEmail(e) {
     e.preventDefault()
     if (website) {
@@ -104,10 +94,7 @@ export default function Login({ onComplete, externalError, onOpenPrivacidade, on
 
         {mode === 'start' && (
           <div className={styles.actions}>
-            <button type="button" className={styles.google} onClick={handleGoogle}>
-              Continuar com Google
-            </button>
-            <button type="button" className={styles.emailLink} onClick={() => setMode('email')}>
+            <button type="button" className={styles.google} onClick={() => setMode('email')}>
               Continuar com e-mail
             </button>
             {error && <p className={styles.error}>{error}</p>}
