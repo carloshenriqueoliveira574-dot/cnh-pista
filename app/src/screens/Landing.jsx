@@ -124,7 +124,10 @@ export default function Landing({ onStart, onOpenPrivacidade, onOpenTermos }) {
                 </li>
               ))}
             </ul>
-            <p className={styles.planNote}>Assine quando quiser, direto no seu perfil, depois de criar a conta.</p>
+            <button type="button" className={styles.planCta} onClick={() => onStart('pricing_premium')}>
+              Quero o Premium
+            </button>
+            <p className={styles.planNote}>Você cria a conta antes e assina direto no seu perfil.</p>
           </div>
         </div>
       </section>
